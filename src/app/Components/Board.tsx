@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Confetti from "react-confetti";
 
 const boardConfig: Array<{ boxId: number; boxValue: string | null }> = [
   {
@@ -160,6 +161,24 @@ export default function Board() {
           Reset Game
         </button>
       </div>
+      {/* <Confetti width={200} height={200} /> */}
+
+      {winner && (
+        <Confetti
+          drawShape={(ctx) => {
+            ctx.beginPath();
+            for (let i = 0; i < 22; i++) {
+              const angle = 0.35 * i;
+              const x = (0.2 + 1.5 * angle) * Math.cos(angle);
+              const y = (0.2 + 1.5 * angle) * Math.sin(angle);
+              ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+            ctx.closePath();
+          }}
+          recycle={false}
+        />
+      )}
     </div>
   );
 }
